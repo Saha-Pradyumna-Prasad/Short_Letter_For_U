@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Short Letter For You 🌹</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --primary-pink: #ff4d6d;
+            --dark-pink: #c9184a;
+            --light-pink: #ffccd5;
+            --pure-red: #ff002b;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            height: 100vh;
+            height: -webkit-fill-available;
+            overflow: hidden; /* ওয়ান-পেজ লুক, কোনো স্ক্রোলিং হবে না */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 15px;
+        }
+
+        /* Background Moving Red Hearts */
+        .bg-heart {
+            position: absolute;
+            color: var(--pure-red);
+            opacity: 0.35;
+            animation: floatUp 5s linear infinite;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.6);
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        /* Centering Container for the Card */
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex-grow: 1;
+            z-index: 10;
+            padding-bottom: 30px;
+        }
+
+        /* Beautiful Responsive Proposal Card */
+        .proposal-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2.5px solid var(--primary-pink);
+            border-radius: 30px;
+            padding: clamp(20px, 4.5vw, 35px) clamp(15px, 4vw, 30px);
+            box-shadow: 0 20px 45px rgba(255, 77, 109, 0.28);
+            max-width: 520px; 
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* সুপার লাভিশ ক্যালিগ্রাফি টাইটেল */
+        .romantic-title {
+            font-family: 'Sacramento', cursive;
+            color: var(--dark-pink);
+            font-size: clamp(3.5rem, 10vw, 4.8rem);
+            margin-bottom: 0px;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        /* চেরিশড লেটার কন্টেন্ট (ইটালিক রোমান্টিক স্টাইল) */
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #333333;
+            font-size: clamp(1.05rem, 3.8vw, 1.25rem);
+            line-height: 1.45;
+            margin-bottom: 15px;
+            letter-spacing: 0.2px;
+        }
+
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--dark-pink);
+            font-size: clamp(1.2rem, 4.2vw, 1.5rem);
+            margin-bottom: 15px;
+        }
+
+        /* Interaction Box */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            min-height: 65px;
+            margin-top: 5px;
+        }
+
+        .btn-love {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 10px 30px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-love:hover {
+            background-color: var(--dark-pink);
+            color: white;
+            transform: scale(1.06);
+            box-shadow: 0 8px 22px rgba(201, 24, 74, 0.5);
+        }
+
+        /* No Button Positioned Specially */
+        #btn-no {
+            position: absolute;
+            background-color: #7209b7;
+            color: white;
+            padding: 10px 30px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: left 0.1s ease, top 0.1s ease;
+            z-index: 1000;
+        }
+
+        /* Success View Styling */
+        .success-view {
+            display: none;
+        }
+
+        .success-gif {
+            max-width: clamp(90px, 25vw, 120px); 
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .promise-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            color: var(--dark-pink);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        /* 100% Fixed Absolute Bottom Footer */
+        footer {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #888888;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            z-index: 20;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <div class="main-container">
+        <div class="proposal-card" id="main-card">
+            
+            <div id="proposal-view">
+                <h1 class="romantic-title">My Dearest... ❤️</h1>
+                <p class="letter-content">
+                    <b>From the very moment I saw you, my entire world completely changed. Your smile, your voice, and your presence fill my heart with a joy I never knew existed. I don't just want you for a day or a year—I want to share every single sunrise and sunset with you. Through all of life's beautiful moments and storms, I promise to hold your hand forever.</b>
+                </p>
+                <h3 class="question-text">Will you marry me? 💍</h3>
+                
+                <div class="btn-container" id="interaction-box">
+                    <button class="btn btn-love" id="btn-yes">Yes, I Will!</button>
+                    <button class="btn" id="btn-no">No</button>
+                </div>
+            </div>
+
+            <div class="success-view" id="success-view">
+                <img class="success-gif" src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUydGozcWw5NWJ1ZHUzNG9leXc3emdoNzNrMThqNjZrbzBtcm43MWU4cSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/fvN5KrNcKKUyX7hNIA/source.gif" alt="celebration GIF">
+                
+                <h1 class="romantic-title">Yes! Yes! Yes! 🥰</h1>
+                <h3 class="mb-2 text-success fw-bold" style="font-size: clamp(1.05rem, 4vw, 1.35rem);">My Heart is Yours Forever! ❤️</h3>
+                <p class="letter-content promise-text">
+                    "I solemnly promise to love you, cherish you, and stand by you until my very last breath. I will protect your smile, celebrate your happiness, and be your safest haven through everything. Thank you for choosing me!"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer><b>Powered by Dev.Ankur</b></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 1. Background Floating Red Hearts
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('bg-heart');
+            heart.innerHTML = '❤️';
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 250);
+
+        // 2. Full Screen Run Away Logic for 'No' Button
+        const noBtn = document.getElementById('btn-no');
+        let isDetached = false;
+
+        function teleportButton() {
+            if (!isDetached) {
+                document.body.appendChild(noBtn); 
+                isDetached = true;
+            }
+
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', teleportButton);
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault(); 
+            teleportButton();
+        });
+
+        // 3. 'Yes' Button Action
+        const yesBtn = document.getElementById('btn-yes');
+        const proposalView = document.getElementById('proposal-view');
+        const successView = document.getElementById('success-view');
+
+        yesBtn.addEventListener('click', () => {
+            proposalView.style.display = 'none';
+            successView.style.display = 'block';
+            
+            if (noBtn) noBtn.remove();
+            
+            for(let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 40);
+            }
+        });
+    </script>
+</body>
+</html>
